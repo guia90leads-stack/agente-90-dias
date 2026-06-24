@@ -20,9 +20,25 @@ async function signInWithEmail(email) {
   const db = getDB();
   const { error } = await db.auth.signInWithOtp({
     email,
-    options: { emailRedirectTo: window.location.origin },
+    options: { emailRedirectTo: 'https://agente-90-dias.vercel.app' },
   });
   return { error };
+}
+
+async function signInWithPassword(email, password) {
+  const db = getDB();
+  const { data, error } = await db.auth.signInWithPassword({ email, password });
+  return { data, error };
+}
+
+async function signUpWithPassword(email, password) {
+  const db = getDB();
+  const { data, error } = await db.auth.signUp({
+    email,
+    password,
+    options: { emailRedirectTo: 'https://agente-90-dias.vercel.app' },
+  });
+  return { data, error };
 }
 
 async function getUser() {

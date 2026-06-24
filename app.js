@@ -133,27 +133,62 @@ function renderApp() {
   showSection('hoy');
 }
 
-document.getElementById('login-form')?.addEventListener('submit', async (e) => {
+window.switchLoginTab = function(tab) {
+  const isPw = tab === 'password';
+  document.getElementById('form-password').style.display = isPw ? 'flex' : 'none';
+  document.getElementById('form-magic').style.display = isPw ? 'none' : 'flex';
+  document.getElementById('tab-password').style.background = isPw ? 'var(--gold)' : 'transparent';
+  document.getElementById('tab-password').style.color = isPw ? '#000' : 'var(--text2)';
+  document.getElementById('tab-magic').style.background = isPw ? 'transparent' : 'var(--gold)';
+  document.getElementById('tab-magic').style.color = isPw ? 'var(--text2)' : '#000';
+};
+
+window.handlePasswordLogin = async function(e) {
   e.preventDefault();
-  const email = document.getElementById('login-email').value.trim();
+  const email = document.getElementById('pw-email').value.trim();
+  const password = document.getElementById('pw-password').value;
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.textContent = 'Ingresando...'; btn.disabled = true;
+  const { error } = await signInWithPassword(email, password);
+  if (error) {
+    toast('Error: ' + (error.message.includes('Invalid') ? 'Email o contraseña incorrectos' : error.message), 'error');
+    btn.textContent = 'Ingresar'; btn.disabled = false;
+  }
+};
+
+window.handleSignUp = async function() {
+  const email = document.getElementById('pw-email').value.trim();
+  const password = document.getElementById('pw-password').value;
+  if (!email || password.length < 6) {
+    toast('Completá el email y una contraseña de al menos 6 caracteres', 'error'); return;
+  }
+  const { error } = await signUpWithPassword(email, password);
+  if (error) {
+    toast('Error: ' + error.message, 'error');
+  } else {
+    toast('✅ Cuenta creada. Revisá tu email para confirmarla, luego ingresá.', 'success', 6000);
+  }
+};
+
+window.handleMagicLogin = async function(e) {
+  e.preventDefault();
+  const email = document.getElementById('magic-email').value.trim();
   if (!email) return;
   const btn = e.target.querySelector('button');
-  btn.textContent = 'Enviando...';
-  btn.disabled = true;
+  btn.textContent = 'Enviando...'; btn.disabled = true;
   const { error } = await signInWithEmail(email);
   if (error) {
     toast('Error: ' + error.message, 'error');
-    btn.textContent = 'Ingresar con Magic Link';
-    btn.disabled = false;
+    btn.textContent = 'Enviar Magic Link ✨'; btn.disabled = false;
   } else {
-    document.getElementById('login-form').innerHTML = `
-      <div style="text-align:center; padding: 20px;">
+    document.getElementById('form-magic').innerHTML = `
+      <div style="text-align:center;padding:20px;">
         <div style="font-size:48px;margin-bottom:16px;">📬</div>
         <p style="font-weight:700;font-size:18px;margin-bottom:8px;">¡Revisá tu email!</p>
-        <p style="color:var(--text2);font-size:14px;">Te mandamos un link mágico a <strong>${email}</strong>. Tocalo para entrar a la app.</p>
+        <p style="color:var(--text2);font-size:14px;">Te mandamos un link a <strong>${email}</strong>. Tocalo para entrar.</p>
       </div>`;
   }
-});
+};
 
 // ---- SECTION: HOY ----
 

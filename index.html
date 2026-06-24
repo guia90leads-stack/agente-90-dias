@@ -19,16 +19,41 @@
 <body>
 
 <!-- ====== PANTALLA DE LOGIN ====== -->
-<div id="screen-login" style="display:flex; min-height:100vh; flex-direction:column; align-items:center; justify-content:center; padding:24px; gap:24px; background:var(--bg);">
+<div id="screen-login" style="display:flex; min-height:100vh; flex-direction:column; align-items:center; justify-content:center; padding:24px; gap:20px; background:var(--bg);">
   <div class="login-logo">🏠</div>
   <div>
     <div class="login-title">Agente 90 Días</div>
     <div class="login-sub" style="margin-top:8px;">Tu guía virtual para dominar el mercado inmobiliario en 90 días</div>
   </div>
-  <form class="login-form" id="login-form">
-    <input type="email" id="login-email" class="input" placeholder="tu@email.com" required autocomplete="email">
-    <button type="submit" class="btn btn-primary">Ingresar con Magic Link ✨</button>
-    <p style="text-align:center;font-size:13px;color:var(--text2);">Te enviamos un link al email. Sin contraseña.</p>
+
+  <!-- Tabs -->
+  <div style="display:flex;gap:0;background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;width:100%;max-width:340px;">
+    <button id="tab-password" onclick="switchLoginTab('password')"
+      style="flex:1;padding:10px;border:none;background:var(--gold);color:#000;font-weight:700;font-size:14px;cursor:pointer;">
+      Contraseña
+    </button>
+    <button id="tab-magic" onclick="switchLoginTab('magic')"
+      style="flex:1;padding:10px;border:none;background:transparent;color:var(--text2);font-weight:600;font-size:14px;cursor:pointer;">
+      Magic Link
+    </button>
+  </div>
+
+  <!-- Login con contraseña -->
+  <form class="login-form" id="form-password" onsubmit="handlePasswordLogin(event)">
+    <input type="email" id="pw-email" class="input" placeholder="tu@email.com" required autocomplete="email">
+    <input type="password" id="pw-password" class="input" placeholder="Contraseña" required autocomplete="current-password" minlength="6">
+    <button type="submit" class="btn btn-primary">Ingresar</button>
+    <button type="button" class="btn btn-secondary" onclick="handleSignUp()" style="font-size:14px;">
+      Crear cuenta nueva
+    </button>
+    <p style="text-align:center;font-size:12px;color:var(--text2);">Primera vez: usá "Crear cuenta nueva" con tu email y una contraseña.</p>
+  </form>
+
+  <!-- Login con magic link -->
+  <form class="login-form" id="form-magic" style="display:none;" onsubmit="handleMagicLogin(event)">
+    <input type="email" id="magic-email" class="input" placeholder="tu@email.com" required autocomplete="email">
+    <button type="submit" class="btn btn-primary">Enviar Magic Link ✨</button>
+    <p style="text-align:center;font-size:13px;color:var(--text2);">Te mandamos un link al email para entrar sin contraseña.</p>
   </form>
 </div>
 
