@@ -104,8 +104,8 @@ create policy "push_subscriptions: service role lee todo"
 
 /*
 select cron.schedule(
-  'send-push-notifications',   -- nombre del job
-  '* * * * *',                 -- cada minuto
+  'send-push-notifications',
+  '* * * * *',
   $$
     select net.http_post(
       url := 'https://TU_PROJECT_ID.supabase.co/functions/v1/send-notifications',
@@ -114,6 +114,8 @@ select cron.schedule(
     );
   $$
 );
+-- Reemplaza TU_PROJECT_ID con el Reference ID de tu proyecto (Settings > General)
+-- Reemplaza TU_SERVICE_ROLE_KEY con tu service_role key (Settings > API)
 */
 
 -- NOTA: Reemplaza TU_PROJECT_ID y TU_SERVICE_ROLE_KEY antes de ejecutar el cron.

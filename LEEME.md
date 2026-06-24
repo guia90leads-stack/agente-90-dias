@@ -65,23 +65,18 @@ En tu proyecto de Supabase, buscá estas claves:
 
 ---
 
-## PASO 3 — Generar las claves VAPID (para notificaciones)
+## PASO 3 — Claves VAPID ✅ YA GENERADAS
 
-Las claves VAPID son las que permiten enviar notificaciones push.
+Las claves VAPID ya están generadas y configuradas en `config.js`. No necesitás hacer nada.
 
-### Opción A — Usando una web online (más fácil)
-1. Entrá a **https://web-push-codelab.glitch.me/**
-2. Hacé click en **"Generate VAPID Keys"**
-3. Vas a ver dos claves:
-   - **Public Key** (para pegar en `config.js`)
-   - **Private Key** (para pegar en los Secrets de Supabase)
-4. Guardalas en tu bloc de notas
+Guardá la **Private Key** — la vas a necesitar en el Paso 7 para Supabase:
 
-### Opción B — Usando Node.js (si lo tenés instalado)
 ```
-npm install -g web-push
-web-push generate-vapid-keys
+VAPID_PUBLIC_KEY  = BBzWIMYGnXlhAX0PSiCqaBVuDL1d56N9Vz5sRlGhjXdKBNhnfDG252R4q6hoqRn0yohitksnu8qW_A2t9IrZDes
+VAPID_PRIVATE_KEY = fHy1_v-h5kJ9XWJ4R97V7NvaqXEtZzX3Ge4ef7m5Fgw
 ```
+
+⚠️ **Importante:** Estas claves son únicas para vos. No las compartas con nadie.
 
 ---
 
@@ -155,9 +150,9 @@ La Edge Function es la que envía las notificaciones automáticamente cada hora.
 |--------|-------|
 | `SUPABASE_URL` | Tu Project URL (empieza con https://) |
 | `SUPABASE_SERVICE_ROLE_KEY` | Tu service_role key (la privada) |
-| `VAPID_PUBLIC_KEY` | Tu VAPID Public Key |
-| `VAPID_PRIVATE_KEY` | Tu VAPID Private Key |
-| `VAPID_SUBJECT` | `mailto:tu@email.com` |
+| `VAPID_PUBLIC_KEY` | `BBzWIMYGnXlhAX0PSiCqaBVuDL1d56N9Vz5sRlGhjXdKBNhnfDG252R4q6hoqRn0yohitksnu8qW_A2t9IrZDes` |
+| `VAPID_PRIVATE_KEY` | `fHy1_v-h5kJ9XWJ4R97V7NvaqXEtZzX3Ge4ef7m5Fgw` |
+| `VAPID_SUBJECT` | `mailto:santiagocloudecode@gmail.com` |
 | `APP_URL` | Tu URL de Vercel (ej: https://agente-90-dias.vercel.app) |
 
 ### 7.3 — Subir la Edge Function

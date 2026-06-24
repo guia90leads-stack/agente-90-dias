@@ -76,25 +76,47 @@ function showSection(name) {
 // ---- MARKDOWN SIMPLE ----
 
 function renderMarkdown(text) {
-  return text
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/`(.+?)`/g, '<code>$1</code>')
-    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
-    .replace(/^---$/gm, '<hr>')
-    .replace(/^\| (.+) \|$/gm, (_, row) => {
-      const cells = row.split(' | ');
-      return '<tr>' + cells.map(c => `<td>${c.trim()}</td>`).join('') + '</tr>';
-    })
-    .replace(/(<tr>.*<\/tr>\n?)+/gs, match => `<table>${match}</table>`)
-    .replace(/^- (.+)$/gm, '<li>$1</li>')
-    .replace(/(<li>.*<\/li>\n?)+/gs, match => `<ul>${match}</ul>`)
-    .replace(/^\d+\. (.+)$/gm, '<li>$1</li>')
-    .replace(/\n\n/g, '</p><p>')
-    .replace(/^(?!<[hup|t|b|l|c|s])(.*)/gm, (m, p) => p ? p : '')
-    .trim();
+  const lines = text.split('\n');
+  const out = [];
+  let inList = false;
+  let inTable = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    let line = lines[i];
+    line = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    line = line.replace(/`(.+?)`/g, '<code>$1</code>');
+
+    if (/^# (.+)/.test(line))        { if(inList){out.push('</ul>');inList=false;} out.push(`<h1>${line.slice(2)}</h1>`); }
+    else if (/^## (.+)/.test(line))  { if(inList){out.push('</ul>');inList=false;} out.push(`<h2>${line.slice(3)}</h2>`); }
+    else if (/^### (.+)/.test(line)) { if(inList){out.push('</ul>');inList=false;} out.push(`<h3>${line.slice(4)}</h3>`); }
+    else if (/^---$/.test(line))     { if(inList){out.push('</ul>');inList=false;} out.push('<hr>'); }
+    else if (/^> (.+)/.test(line))   { out.push(`<blockquote>${line.slice(2)}</blockquote>`); }
+    else if (/^\| .+ \|/.test(line) && !/^[\| \-]+$/.test(line)) {
+      if(inList){out.push('</ul>');inList=false;}
+      if(!inTable){ out.push('<table>'); inTable=true; }
+      const cells = line.split('|').filter(c => c.trim()).map(c => `<td>${c.trim()}</td>`).join('');
+      out.push(`<tr>${cells}</tr>`);
+    }
+    else if (/^[\| \-:]+$/.test(line) && inTable) { /* skip separator rows */ }
+    else if (/^[-*] (.+)/.test(line)) {
+      if(inTable){out.push('</table>');inTable=false;}
+      if(!inList){ out.push('<ul>'); inList=true; }
+      out.push(`<li>${line.slice(2)}</li>`);
+    }
+    else if (/^\d+\. (.+)/.test(line)) {
+      if(inTable){out.push('</table>');inTable=false;}
+      if(!inList){ out.push('<ul>'); inList=true; }
+      out.push(`<li>${line.replace(/^\d+\. /, '')}</li>`);
+    }
+    else {
+      if(inList){out.push('</ul>');inList=false;}
+      if(inTable){out.push('</table>');inTable=false;}
+      if(line.trim()) out.push(`<p>${line}</p>`);
+    }
+  }
+  if(inList) out.push('</ul>');
+  if(inTable) out.push('</table>');
+  return out.join('');
 }
 
 // ---- AUTH SCREEN ----
