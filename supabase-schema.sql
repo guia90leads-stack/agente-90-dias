@@ -108,7 +108,7 @@ select cron.schedule(
   '* * * * *',
   $$
     select net.http_post(
-      url := 'https://TU_PROJECT_ID.supabase.co/functions/v1/send-notifications',
+      url := 'https://vrfgddijjzlvymuvdjzw.supabase.co/functions/v1/send-notifications',
       headers := '{"Content-Type": "application/json", "Authorization": "Bearer TU_SERVICE_ROLE_KEY"}'::jsonb,
       body := '{}'::jsonb
     );
