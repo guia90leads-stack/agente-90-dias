@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192">
+  <!-- Fondo -->
+  <rect width="192" height="192" rx="40" fill="#0d1117"/>
+  <!-- Casa -->
+  <polygon points="96,28 28,88 52,88 52,156 140,156 140,88 164,88" fill="#f7b731"/>
+  <!-- Puerta -->
+  <rect x="76" y="116" width="40" height="40" rx="4" fill="#0d1117"/>
+  <!-- Ventana izquierda -->
+  <rect x="52" y="100" width="20" height="16" rx="3" fill="#0d1117"/>
+  <!-- Ventana derecha -->
+  <rect x="120" y="100" width="20" height="16" rx="3" fill="#0d1117"/>
+  <!-- Estrella / badge -->
+  <circle cx="148" cy="44" r="22" fill="#f7b731"/>
+  <text x="148" y="52" text-anchor="middle" font-size="22" fill="#0d1117" font-family="system-ui" font-weight="bold">90</text>
+</svg>

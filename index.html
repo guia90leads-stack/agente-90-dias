@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Agente 90">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Guía Virtual para Agente Inmobiliario — Plan 90 Días">
+
+  <title>Agente 90 Días</title>
+
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/icon.svg">
+  <link rel="icon" href="/icon.svg">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<!-- ====== PANTALLA DE LOGIN ====== -->
+<div id="screen-login" style="display:flex; min-height:100vh; flex-direction:column; align-items:center; justify-content:center; padding:24px; gap:24px; background:var(--bg);">
+  <div class="login-logo">🏠</div>
+  <div>
+    <div class="login-title">Agente 90 Días</div>
+    <div class="login-sub" style="margin-top:8px;">Tu guía virtual para dominar el mercado inmobiliario en 90 días</div>
+  </div>
+  <form class="login-form" id="login-form">
+    <input type="email" id="login-email" class="input" placeholder="tu@email.com" required autocomplete="email">
+    <button type="submit" class="btn btn-primary">Ingresar con Magic Link ✨</button>
+    <p style="text-align:center;font-size:13px;color:var(--text2);">Te enviamos un link al email. Sin contraseña.</p>
+  </form>
+</div>
+
+<!-- ====== APP PRINCIPAL ====== -->
+<div id="screen-app" style="display:none;" class="flex-col" style="min-height:100vh;">
+
+  <!-- TOP BAR -->
+  <div class="top-bar">
+    <h1>🏠 Agente 90</h1>
+    <div class="day-badge" id="top-day-badge">Día 1 de 90</div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="main-content">
+
+    <!-- HOY -->
+    <div class="section active" id="section-hoy">
+      <div class="loading"><span class="spinner">⏳</span>Cargando...</div>
+    </div>
+
+    <!-- CALENDARIO -->
+    <div class="section" id="section-calendario">
+      <div class="loading"><span class="spinner">⏳</span>Cargando...</div>
+    </div>
+
+    <!-- PROGRESO -->
+    <div class="section" id="section-progreso">
+      <div class="loading"><span class="spinner">⏳</span>Cargando...</div>
+    </div>
+
+    <!-- MANUALES -->
+    <div class="section" id="section-manuales">
+      <div class="loading"><span class="spinner">⏳</span>Cargando...</div>
+    </div>
+
+    <!-- CONFIG -->
+    <div class="section" id="section-config">
+      <div class="loading"><span class="spinner">⏳</span>Cargando...</div>
+    </div>
+
+  </div><!-- /main-content -->
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-section="hoy" onclick="showSection('hoy')">
+      <span class="nav-icon">🏠</span>
+      <span>Hoy</span>
+    </button>
+    <button class="nav-btn" data-section="calendario" onclick="showSection('calendario')">
+      <span class="nav-icon">📅</span>
+      <span>Calendario</span>
+    </button>
+    <button class="nav-btn" data-section="progreso" onclick="showSection('progreso')">
+      <span class="nav-icon">📊</span>
+      <span>Progreso</span>
+    </button>
+    <button class="nav-btn" data-section="manuales" onclick="showSection('manuales')">
+      <span class="nav-icon">📚</span>
+      <span>Manuales</span>
+    </button>
+    <button class="nav-btn" data-section="config" onclick="showSection('config')">
+      <span class="nav-icon">⚙️</span>
+      <span>Config</span>
+    </button>
+  </nav>
+
+</div><!-- /screen-app -->
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="/config.js"></script>
+<script src="/tasks-data.js"></script>
+<script src="/db.js"></script>
+<script src="/push.js"></script>
+<script src="/app.js"></script>
+
+</body>
+</html>
