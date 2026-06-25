@@ -6,7 +6,7 @@
 const CONFIG = {
   // 1. De tu proyecto en supabase.com -> Settings -> API
   SUPABASE_URL: 'https://vrfgddijjzlvymuvdjzw.supabase.co',
-  SUPABASE_ANON_KEY: 'sb_publishable_XFoDestCWi2CxR5e7sZS8Q_YmxhtG9R',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZyZmdkZGlqanpsdnltdXZkanp3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODIzMDAwOTAsImV4cCI6MjA5Nzg3NjA5MH0.N9t1zAVv6S8Dl8g3kZUrhKtciveUJsaCC1kg-DhWMj8',
 
   // 2. Claves VAPID ya generadas — NO las cambies
   VAPID_PUBLIC_KEY: 'BBzWIMYGnXlhAX0PSiCqaBVuDL1d56N9Vz5sRlGhjXdKBNhnfDG252R4q6hoqRn0yohitksnu8qW_A2t9IrZDes',
